@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="page">
+    <h1>Packing List</h1>
+    <form method="POST" class="upload-form">
+      <input type="text" name="item" placeholder="Add new item..." required style="padding: 8px; border-radius: 8px; border: 1px solid #ccc; width: 70%;">
+      <button class="btn" type="submit">Add</button>
+    </form>
+
+    {% if packing_items %}
+      <ul style="margin-top: 20px; list-style: none; padding: 0;">
+        {% for item in packing_items %}
+          <li style="background: var(--card); margin-bottom: 8px; padding: 8px 12px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center;">
+            {{ item }}
+            <a href="{{ url_for('packing_delete', item=item) }}" style="color: var(--accent); font-weight: 600; text-decoration: none; cursor: pointer;">✕</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="empty">Your packing list is empty. Start adding items!</p>
+    {% endif %}
+
+    <a href="{{ url_for('index') }}" class="link" style="display: block; margin-top: 30px;">← Back to Closet</a>
+  </div>
+{% endblock %}

@@ -1,0 +1,22 @@
+<h2>Your Closet</h2>
+<form method="POST" enctype="multipart/form-data">
+    Name: <input type="text" name="name" required>
+    Category:
+    <select name="category">
+        <option value="Top">Top</option>
+        <option value="Bottom">Bottom</option>
+        <option value="Shoes">Shoes</option>
+        <option value="Accessory">Accessory</option>
+    </select>
+    Image: <input type="file" name="image" required>
+    <button type="submit">Add Clothing</button>
+</form>
+
+<div style="display:flex; flex-wrap:wrap;">
+{% for item in clothes %}
+    <div style="margin:10px; text-align:center;">
+        <img src="{{ url_for('static', filename='uploads/' + item['image']) }}" width="100">
+        <p>{{ item['name'] }} ({{ item['category'] }})</p>
+    </div>
+{% endfor %}
+</div>

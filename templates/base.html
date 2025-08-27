@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}PackingPlanner✈️💫{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>PackingPlanner✈️💫</h1>
+        <nav>
+            <a href="{{ url_for('index') }}">Closet & Packing🎒</a> |
+            <a href="{{ url_for('upload') }}">Upload</a>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

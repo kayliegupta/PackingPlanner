@@ -1,0 +1,14 @@
+<h2>Create Outfit</h2>
+<form method="POST">
+    Outfit Name: <input type="text" name="outfit_name" required>
+    <div style="display:flex; flex-wrap:wrap;">
+    {% for item in clothes %}
+        <label style="margin:10px; text-align:center;">
+            <input type="checkbox" name="clothing_ids" value="{{ item['id'] }}">
+            <img src="{{ url_for('static', filename='uploads/' + item['image']) }}" width="100"><br>
+            {{ item['name'] }}
+        </label>
+    {% endfor %}
+    </div>
+    <button type="submit">Save Outfit</button>
+</form>

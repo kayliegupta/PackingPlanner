@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Clothing{% endblock %}
+
+{% block content %}
+<h2>Upload Clothing Item</h2>
+<form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+    <label>Item Name:</label><br>
+    <input type="text" name="name" required><br><br>
+
+    <label>Tags (comma separated):</label><br>
+    <input type="text" name="tags" placeholder="top, casual, summer"><br><br>
+
+    <label>Category:</label><br>
+    <select name="category" required>
+        <option value="">Select category</option>
+        <option value="top">Top</option>
+        <option value="bottom">Bottom</option>
+        <option value="shoes">Shoes</option>
+        <option value="accessory">Accessory</option>
+        <option value="accessory">Dress</option>
+        <option value="accessory">Swim</option>
+</select><br><br>
+
+    <label>Image:</label><br>
+    <input type="file" name="image" accept="image/*" required><br><br>
+
+    <button type="submit">Upload</button>
+</form>
+{% endblock %}

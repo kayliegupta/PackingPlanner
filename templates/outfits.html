@@ -1,0 +1,12 @@
+<h2>Your Outfits</h2>
+{% for outfit in outfits %}
+    <h3>{{ outfit['name'] }}</h3>
+    <div style="display:flex; flex-wrap:wrap;">
+    {% for item in outfit['items'] %}
+        <div style="margin:10px; text-align:center;">
+            <img src="{{ url_for('static', filename='uploads/' + item['image']) }}" width="100">
+            <p>{{ item['name'] }}</p>
+        </div>
+    {% endfor %}
+    </div>
+{% endfor %}
