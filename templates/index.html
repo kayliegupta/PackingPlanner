@@ -1,34 +1,59 @@
-{% extends "base.html" %}
-
-{% block title %}Your Closet & Packing List{% endblock %}
+{% extends 'base.html' %}
 
 {% block content %}
-<h2>Your Closet</h2>
+<h2>Closet</h2>
 <div class="closet-grid">
     {% for item in closet %}
-    <div class="closet-item">
-        <img src="{{ url_for('static', filename='uploads/' + item['image']) }}" width="150">
-        <h4>{{ item['name'] }}</h4>
-        {% if item['tags'] %}
-        <p class="tags">
-            {% for tag in item['tags'].split(',') %}
-                <span class="tag">{{ tag.strip() }}</span>
+    <div class="closet-item {% if item.id in packed_ids %}packed{% endif %}">
+        <img src="{{ url_for('static', filename='uploads/' + item.image) }}" alt="{{ item.name }}" width="150">
+        <p>{{ item.name }}</p>
+        <p>
+            {% for tag in item.tags.split(',') %}
+                <span class="tag">{{ tag }}</span>
             {% endfor %}
         </p>
-        {% endif %}
+        <p>Category: {{ item.category }}</p>
+
+        <!-- Add / Packed Button -->
+        <form action="{{ url_for('add_to_packing') }}" method="post" style="margin-bottom:5px;">
+            <input type="hidden" name="clothing_id" value="{{ item.id }}">
+            <button type="submit">
+                {% if item.id in packed_ids %}Packed✔️{% else %}Add to Packing List➕{% endif %}
+            </button>
+        </form>
+
+
     </div>
     {% endfor %}
 </div>
 
-<h2>Packing List</h2>
-<form action="{{ url_for('add_packing_item') }}" method="post">
-    <input type="text" name="item_name" placeholder="Add new item" required>
-    <button type="submit">Add</button>
-</form>
+<hr>
 
+<h2>Packing List</h2>
 <ul>
     {% for item in packing_list %}
-    <li>{{ item['name'] }}</li>
+        <li>
+            {% if item.clothing_id %}
+                {{ item.clothing_name }} ✔️
+            {% else %}
+                {{ item.name }}
+            {% endif %}
+
+            <!-- Remove button for all items -->
+            <form action="{{ url_for('remove_packing_item') }}" method="post" style="display:inline;">
+                <input type="hidden" name="item_id" value="{{ item.id }}">
+                <button type="submit" style="background-color:#ff6f91; color:white; border:none; border-radius:6px; padding:2px 5px; cursor:pointer;">❌</button>
+            </form>
+        </li>
     {% endfor %}
 </ul>
+
+<!-- Manual add form -->
+<form action="{{ url_for('add_packing_item') }}" method="post" style="margin-top: 15px;">
+    <input type="text" name="item_name" placeholder="Add extra item..." required
+           style="width: 70%; padding: 8px; border-radius: 8px; border: 1px solid #ddd;">
+    <button type="submit" style="padding: 8px 12px; border-radius: 8px; background-color: #ffb6b9; color: white; border: none; cursor: pointer;">
+        Add
+    </button>
+</form>
 {% endblock %}
