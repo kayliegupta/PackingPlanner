@@ -107,3 +107,17 @@ ul li {
     margin-bottom: 8px;
     font-size: 16px;
 }
+
+form button {
+    background-color: #ff9aa2;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+form button:hover {
+    background-color: #ff6f91;
+}

@@ -141,6 +141,15 @@ def remove_packing_item():
     conn.close()
     return redirect(url_for('index'))
 
+@app.route("/delete/<int:item_id>", methods=["POST"])
+def delete_item(item_id):
+    conn = sqlite3.connect("packingplanner.db")
+    c = conn.cursor()
+    c.execute("DELETE FROM clothes WHERE id = ?", (item_id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for("index"))
+
 # ---------------- Run app ----------------
 
 if __name__ == '__main__':

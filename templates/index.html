@@ -5,24 +5,41 @@
 <div class="closet-grid">
     {% for item in closet %}
     <div class="closet-item {% if item.id in packed_ids %}packed{% endif %}">
-        <img src="{{ url_for('static', filename='uploads/' + item.image) }}" alt="{{ item.name }}" width="150">
-        <p>{{ item.name }}</p>
+        <!-- Item image -->
+        <img src="{{ url_for('static', filename='uploads/' + item.image) }}"
+             alt="{{ item.name }}" width="150">
+
+        <!-- Item name -->
+        <p><strong>{{ item.name }}</strong></p>
+
+        <!-- Tags -->
         <p>
             {% for tag in item.tags.split(',') %}
                 <span class="tag">{{ tag }}</span>
             {% endfor %}
         </p>
+
+        <!-- Category -->
         <p>Category: {{ item.category }}</p>
 
         <!-- Add / Packed Button -->
         <form action="{{ url_for('add_to_packing') }}" method="post" style="margin-bottom:5px;">
             <input type="hidden" name="clothing_id" value="{{ item.id }}">
             <button type="submit">
-                {% if item.id in packed_ids %}Packed✔️{% else %}Add to Packing List➕{% endif %}
+                {% if item.id in packed_ids %}
+                    Packed✔️
+                {% else %}
+                    Add to Packing List➕
+                {% endif %}
             </button>
         </form>
 
-
+        <!-- Delete Button -->
+        <form action="{{ url_for('delete_item', item_id=item.id) }}" method="post" style="margin-top:5px;">
+            <button type="submit" onclick="return confirm('Delete this item?');">
+                ❌ Delete
+            </button>
+        </form>
     </div>
     {% endfor %}
 </div>
@@ -42,7 +59,9 @@
             <!-- Remove button for all items -->
             <form action="{{ url_for('remove_packing_item') }}" method="post" style="display:inline;">
                 <input type="hidden" name="item_id" value="{{ item.id }}">
-                <button type="submit" style="background-color:#ff6f91; color:white; border:none; border-radius:6px; padding:2px 5px; cursor:pointer;">❌</button>
+                <button type="submit" style="background-color:#ff6f91; color:white; border:none; border-radius:6px; padding:2px 5px; cursor:pointer;">
+                    ❌
+                </button>
             </form>
         </li>
     {% endfor %}
