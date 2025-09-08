@@ -18,6 +18,3 @@ Check out a [1-minute demo video here](https://youtu.be/V0eWUYHqh_0) to see the 
 
 ## Contributing
 Contributions are welcome! Feel free to open an issue or submit a pull request.
-
-## License
-This project is licensed under the MIT License.
